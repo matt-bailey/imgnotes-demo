@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery imgNotes - Interactive Base</title>
+	<style type="text/css" media="all">@import "css/marker.css";</style>
+
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" media="screen">
+
+	<script type="text/javascript" src="libs/jquery/jquery.js"></script>
+	<script type="text/javascript" src="libs/jquery/jquery-ui.js"></script>
+	<script type="text/javascript" src="libs/jquery.fs.zoetrope.min.js"></script>
+	<script type="text/javascript" src="libs/toe.min.js"></script>
+	<script type="text/javascript" src="libs/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="libs/imgViewer.min.js"></script>
+	<script type="text/javascript" src="src/imgNotes.js"></script>
+
+	<style type="text/css">
+		html { box-sizing: border-box; }
+
+		*,
+		*:before,
+		*:after { box-sizing: inherit; }
+
+		body {
+			font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+			font-size: 1em;
+			text-align: center;
+			margin: 0;
+		}
+
+		.imgnotes {
+			max-width: 700px;
+			padding: 0 20px;
+			margin: 40px auto;
+		}
+
+		.imgnotes__img-wrapper { margin-bottom: 40px; }
+
+		.imgnotes__img { max-width: 100%; }
+
+		.actions { margin-bottom: 40px; }
+
+		.data {}
+
+		table {
+			table-layout: fixed;
+			width: 100%;
+			margin: 0 0 1em;
+			border-collapse: collapse;
+		}
+
+		th { text-align: left; }
+
+		th,
+		td { padding: 0.5em; }
+
+		tr,
+		td,
+		th { vertical-align: middle; }
+
+		table.gridtable {
+			color: #333;
+			border-width: 1px;
+			border-color: #ccc;
+		}
+		table.gridtable th {
+			border-width: 1px;
+			padding: 10px;
+			border-style: solid;
+			border-color: #ccc;
+			background-color: #eee;
+			text-align: center;
+		}
+		table.gridtable td {
+			border-width: 1px;
+			padding: 10px;
+			border-style: solid;
+			border-color: #ccc;
+			background-color: #fff;
+		}
+	</style>
+</head>
+<body>
+<div class="imgnotes">
+	<div class="imgnotes__img-wrapper">
+		<img class="imgnotes__img" src="image/SetWidth700-Busy-Fingers-Larger-Screen-Shot.png">
+	</div>
+	<div class="actions">
+		<button class="export-data">Show Saved Data</button>
+	</div>
+	<div class="data"></div>
+</div>
+
+
+<script type="text/javascript">
+	(function($) {
+		$(document).ready(function() {
+
+			var $img = $(".imgnotes__img").imgNotes({canEdit: true});
+
+			var $export = $(".export-data");
+
+			$export.on("click", function() {
+				var $table = $("<table/>").addClass("gridtable");
+				var notes = $img.imgNotes('export');
+				$table.append("<th>X</th><th>Y</th><th>NOTE</th>");
+				$.each(notes, function(index, item) {
+					$table.append("<tr><td>" + item.x + "</td><td>" + item.y + "</td><td>" + item.note + "</td></tr>");
+				});
+				$('.data').html($table);
+			});
+		});
+	})(jQuery);
+</script>
+</body>
+</html>
