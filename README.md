@@ -1,3 +1,3 @@
 # imgNotes Demo
 
-[http://clarite.mattbailey.io](http://clarite.mattbailey.io)
+[Demo](http://clarite.mattbailey.io/imgnotes/)
